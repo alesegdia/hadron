@@ -19,21 +19,50 @@ set_target_properties(hadron PROPERTIES
 # TESTS ########################################
 
 find_package(Allegro REQUIRED)
+add_subdirectory(module/alligator)
+add_subdirectory(module/xstf)
 
-function(add_alligator_test EXEC-NAME SRCS)
-	add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${SRCS})
+set(COMMON_GRAPHICS_TEST_SOURCES
+    src/test/graphics/common/testbed.cpp
+    src/test/graphics/common/testbed.h
+)
+
+function (link_alligator EXEC-NAME SRCS)
+
+endfunction(link_alligator)
+
+function(add_alligator_testbed EXEC-NAME SRCS)
+        add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${COMMON_GRAPHICS_TEST_SOURCES} ${SRCS})
 	target_link_libraries(${EXEC-NAME} alligator)
 	target_link_libraries(${EXEC-NAME} ${ALLEGRO_LIBRARIES})
-	target_include_directories(${EXEC-NAME} PUBLIC module/alligator/src)
-	target_include_directories(${EXEC-NAME} PUBLIC ${ALLEGRO_INCLUDE_DIR})
+        target_include_directories(${EXEC-NAME} PUBLIC src/lib)
+        target_include_directories(${EXEC-NAME} PUBLIC module/alligator/src)
+        target_include_directories(${EXEC-NAME} PUBLIC ${ALLEGRO_INCLUDE_DIR})
 	set_target_properties(${EXEC-NAME} PROPERTIES
 		COMPILE_FLAGS "-std=c++11"
 		LINK_FLAGS "-g -ftest-coverage -fprofile-arcs"
 	)
-endfunction(add_alligator_test)
+endfunction(add_alligator_testbed)
 
-add_subdirectory(module/alligator)
-set(TEST_SOURCES src/test/testbed.cpp src/test/testbed.h)
-add_executable(letest ${TEST_SOURCES})
-target_link_libraries(letest ${ALLEGRO_LIBRARIES})
-target_link_libraries(letest alligator)
+function(add_xstf_test EXEC-NAME SRCS)
+    add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${SRCS})
+    target_link_libraries(${EXEC-NAME} xstf)
+    target_include_directories(${EXEC-NAME} PUBLIC src/lib)
+    target_include_directories(${EXEC-NAME} PUBLIC module/xstf/src)
+    set_target_properties(${EXEC-NAME} PROPERTIES
+            COMPILE_FLAGS "-std=c++11"
+            LINK_FLAGS "-g -ftest-coverage -fprofile-arcs"
+    )
+endfunction(add_xstf_test)
+
+file(GLOB GRAPHIC_TESTBED_FILES "src/test/graphics/*.cpp")
+foreach(file ${GRAPHIC_TESTBED_FILES})
+    get_filename_component(TEST_WE ${file} NAME_WE)
+    add_alligator_testbed(${TEST_WE} ${file})
+endforeach()
+
+file(GLOB XSTF_TEST_FILES "src/test/unit/*.cpp")
+foreach(file ${XSTF_TEST_FILES})
+    get_filename_component(TEST_WE ${file} NAME_WE)
+    add_xstf_test(${TEST_WE} ${file})
+endforeach()

@@ -21,7 +21,7 @@ void remove_by_value( std::vector<T>& v, T& value )
 
 namespace math
 {
-static const float HDRN_ZERO_THRESHOLD = 0.001f;
+static constexpr float HDRN_ZERO_THRESHOLD = 0.001f;
 
 struct Vec2
 {
@@ -81,6 +81,22 @@ public:
      * @return
      */
     bool dirty();
+
+    float x() const {
+        return m_currentPosition.x;
+    }
+
+    float y() const {
+        return m_currentPosition.y;
+    }
+
+    float width() const {
+        return m_width;
+    }
+
+    float height() const {
+        return m_height;
+    }
 
     const math::Vec2& position()
     {
@@ -163,6 +179,11 @@ public:
 
 };
 
+class World {
+public:
+    
+};
+
 class Broadphase {
 public:
 
@@ -187,50 +208,19 @@ class BruteForceBroadphase : public Broadphase
 {
 public:
 
-    BruteForceBroadphase()
-    {
+    BruteForceBroadphase();
 
-    }
+    virtual ~BruteForceBroadphase();
 
-    virtual ~BruteForceBroadphase()
-    {
-        for( auto body : m_bodies )
-        {
-            delete body;
-        }
-    }
+    void step() override;
 
-    void step() override
-    {
-        for( int idb1 = 0; idb1 < m_bodies.size(); idb1++ )
-        {
-            for( int idb2 = idb1 + 1; idb2 < m_bodies.size(); idb2++ )
-            {
-                const Body& b1 = *m_bodies[idb1];
-                const Body& b2 = *m_bodies[idb2];
-
-                if( true == Body::collides( b1, b2 ) )
-                {
-                    collisionHappened( b1, b2 );
-                }
-            }
-        }
-    }
-
-    void registerBody( Body* body ) override
-    {
-        m_bodies.push_back( body );
-        return *m_bodies.end();
-    }
+    void registerBody( Body* body ) override;
 
     /**
      * @brief removeBody
      * @param body
      */
-    void unregisterBody( Body* body ) override
-    {
-        m_bodies.erase( std::remove( m_bodies.begin(), m_bodies.end(), body ), m_bodies.end() );
-    }
+    void unregisterBody( Body* body ) override;
 
 private:
 
