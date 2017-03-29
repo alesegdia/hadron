@@ -20,10 +20,14 @@ set_target_properties(hadron PROPERTIES
 
 find_package(Allegro REQUIRED)
 
+add_subdirectory(module/alligator)
+
 function(add_alligator_test EXEC-NAME SRCS)
+	message(${SRCS})
 	add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${SRCS})
 	target_link_libraries(${EXEC-NAME} alligator)
 	target_link_libraries(${EXEC-NAME} ${ALLEGRO_LIBRARIES})
+	target_include_directories(${EXEC-NAME} PUBLIC src/)
 	target_include_directories(${EXEC-NAME} PUBLIC module/alligator/src)
 	target_include_directories(${EXEC-NAME} PUBLIC ${ALLEGRO_INCLUDE_DIR})
 	set_target_properties(${EXEC-NAME} PROPERTIES
@@ -32,8 +36,6 @@ function(add_alligator_test EXEC-NAME SRCS)
 	)
 endfunction(add_alligator_test)
 
-add_subdirectory(module/alligator)
-set(TEST_SOURCES src/test/testbed.cpp src/test/testbed.h)
-add_executable(letest ${TEST_SOURCES})
-target_link_libraries(letest ${ALLEGRO_LIBRARIES})
-target_link_libraries(letest alligator)
+set(TEST_SOURCES src/test/testbed.cpp src/test/testbed.h src/test/sample.cpp)
+add_alligator_test(letest ${TEST_SOURCES})
+

@@ -1,5 +1,5 @@
+#include "broadphase.h"
 
-#include "./hadron.h"
 
 namespace hadron {
 
@@ -23,11 +23,6 @@ void Broadphase::collisionHappened(const Body &b1, const Body &b2)
     {
         listener->collisionHappened( b1, b2 );
     }
-}
-
-
-ICollisionListener::~ICollisionListener() {
-
 }
 
 }
