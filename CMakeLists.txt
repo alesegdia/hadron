@@ -19,11 +19,14 @@ set_target_properties(hadron PROPERTIES
 # TESTS ########################################
 
 find_package(Allegro REQUIRED)
-
 add_subdirectory(module/alligator)
+add_subdirectory(module/xstf)
+
 
 function(add_alligator_test EXEC-NAME SRCS)
+	message("BEGIN LIST OF SOURCES ========")
 	message(${SRCS})
+	message("END OF LIST OF SOURCES =======")
 	add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${SRCS})
 	target_link_libraries(${EXEC-NAME} alligator)
 	target_link_libraries(${EXEC-NAME} ${ALLEGRO_LIBRARIES})
@@ -36,6 +39,33 @@ function(add_alligator_test EXEC-NAME SRCS)
 	)
 endfunction(add_alligator_test)
 
-set(TEST_SOURCES src/test/testbed.cpp src/test/testbed.h src/test/sample.cpp)
-add_alligator_test(letest ${TEST_SOURCES})
 
+file(GLOB TESTBED_SOURCES "src/test/**/*.cpp")
+add_alligator_test(letest ${TESTBED_SOURCES})
+
+
+
+#[[
+function(add_xstf_test EXEC-NAME SRCS)
+    add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${SRCS})
+    target_link_libraries(${EXEC-NAME} xstf)
+    target_include_directories(${EXEC-NAME} PUBLIC src/lib)
+    target_include_directories(${EXEC-NAME} PUBLIC module/xstf/src)
+    set_target_properties(${EXEC-NAME} PROPERTIES
+            COMPILE_FLAGS "-std=c++11"
+            LINK_FLAGS "-g -ftest-coverage -fprofile-arcs"
+    )
+endfunction(add_xstf_test)
+
+file(GLOB GRAPHIC_TESTBED_FILES "src/test/graphics/*.cpp")
+foreach(file ${GRAPHIC_TESTBED_FILES})
+    get_filename_component(TEST_WE ${file} NAME_WE)
+    add_alligator_testbed(${TEST_WE} ${file})
+endforeach()
+
+file(GLOB XSTF_TEST_FILES "src/test/unit/*.cpp")
+foreach(file ${XSTF_TEST_FILES})
+    get_filename_component(TEST_WE ${file} NAME_WE)
+    add_xstf_test(${TEST_WE} ${file})
+endforeach()
+]]
