@@ -8,13 +8,17 @@ if(WIN32)
 endif()
 
 # CORE LIBRARY ################################
-file(GLOB_RECURSE HADRON_SOURCES **/*.cpp **/*.h)
+file(GLOB_RECURSE HADRON_SOURCES src/lib/**/*.cpp src/lib/**/*.h)
 add_library(hadron ${HADRON_SOURCES})
 set_target_properties(hadron PROPERTIES
         COMPILE_FLAGS "-std=c++11"
         LINK_FLAGS "-g -ftest-coverage -fprofile-arcs"
         INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
+
+message("\nBEGIN LIST OF HADRON SOURCES ========")
+message(${HADRON_SOURCES})
+message("END OF LIST OF HADRON SOURCES =======\n")
 
 # TESTS ########################################
 
@@ -24,9 +28,9 @@ add_subdirectory(module/xstf)
 
 
 function(add_alligator_test EXEC-NAME SRCS)
-	message("BEGIN LIST OF SOURCES ========")
+	message("\nBEGIN LIST OF SOURCES =============")
 	message(${SRCS})
-	message("END OF LIST OF SOURCES =======")
+	message("END OF LIST OF SOURCES ============\n")
 	add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${SRCS})
 	target_link_libraries(${EXEC-NAME} alligator)
 	target_link_libraries(${EXEC-NAME} ${ALLEGRO_LIBRARIES})

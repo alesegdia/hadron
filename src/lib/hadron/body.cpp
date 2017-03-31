@@ -3,12 +3,16 @@
 namespace hadron {
 namespace collision {
 
+IBodyObserver::~IBodyObserver() {
+
+}
+
 bool Body::collides(const Body &rect1, const Body &rect2)
 {
-    if ( rect1.x() < rect2.x() + rect2.width()  &&
-         rect1.x() + rect1.width() > rect2.x()  &&
-         rect1.y() < rect2.y() + rect2.height() &&
-         rect1.height() + rect1.y() > rect2.y() )
+    if ( rect1.aabb().x < rect2.aabb().x + rect2.aabb().width  &&
+         rect1.aabb().x + rect1.aabb().width > rect2.aabb().x  &&
+         rect1.aabb().y < rect2.aabb().y + rect2.aabb().height &&
+         rect1.aabb().height + rect1.aabb().y > rect2.aabb().y )
     {
         return true;
     }
