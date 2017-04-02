@@ -6,11 +6,12 @@
 class TestScreen : public IScreen
 {
 public:
+	virtual ~TestScreen() = 0;
     void update(double delta) override;
     void render();
 
 protected:
-    void addBody(Body* b)
+	void addBody(hadron::collision::Body::Ptr b)
     {
 
     }

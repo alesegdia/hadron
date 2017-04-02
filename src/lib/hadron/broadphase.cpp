@@ -18,7 +18,7 @@ void Broadphase::registerListener(ICollisionListener *listener)
 
 void Broadphase::unregisterListener(ICollisionListener *listener)
 {
-    util::remove_by_value( m_collisionListeners, listener );
+    util::remove_by_value<ICollisionListener*>( m_collisionListeners, listener );
 }
 
 void Broadphase::collisionHappened(const Body &b1, const Body &b2)
@@ -67,7 +67,7 @@ void BruteForceBroadphase::registerBody(Body::Ptr body)
 
 void BruteForceBroadphase::unregisterBody(Body::Ptr body)
 {
-    util::remove_by_value(m_bodies, body);
+    util::remove_by_value<Body::Ptr>(m_bodies, body);
 }
 
 

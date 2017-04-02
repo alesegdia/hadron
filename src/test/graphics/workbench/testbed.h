@@ -3,6 +3,8 @@
 #include <alligator/alligator.h>
 
 #include <vector>
+#include <memory>
+#include "testscreen.h"
 
 
 class Testbed : public Game {
@@ -17,9 +19,9 @@ public:
 
     void dispose() override;
 
-    void addTest(TestScreen::Ptr test)
+	void addTest(TestScreen::Ptr test)
     {
-        this->m_screens->push_back(test);
+		this->m_screens->push_back(std::make_shared<TestScreen>(test));
     }
 
     void update(double delta) override
@@ -28,6 +30,6 @@ public:
     }
 
 private:
-    std::vector<TestScreen::Ptr> m_screens;
+	std::vector<std::shared_ptr<TestScreen>> m_screens;
 
 };

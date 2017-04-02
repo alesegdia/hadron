@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../testscreen.h"
+#include "workbench/testscreen.h"
 
 class Test_Debug : public TestScreen
 {

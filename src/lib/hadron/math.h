@@ -23,16 +23,9 @@ struct Vec2
 
 };
 
-bool operator==( const Vec2& a, const Vec2& b )
-{
-    return  (a.x - b.x) > HDRN_ZERO_THRESHOLD &&
-            (a.y - b.y) > HDRN_ZERO_THRESHOLD;
-}
+bool operator==( const Vec2& a, const Vec2& b );
 
-bool operator!=( const Vec2& a, const Vec2& b )
-{
-    return !(a == b);
-}
+bool operator!=( const Vec2& a, const Vec2& b );
 
 }
 

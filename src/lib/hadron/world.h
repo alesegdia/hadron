@@ -8,7 +8,7 @@ class WorldImpl {
 public:
     WorldImpl()
     {
-        m_broadphase.setNarrowphase(m_narrowphase);
+        //m_broadphase.setNarrowphase(m_narrowphase);
     }
 
     void insertBody(Body::Ptr body)

@@ -34,7 +34,7 @@ function(add_alligator_test EXEC-NAME SRCS)
 	add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${SRCS})
 	target_link_libraries(${EXEC-NAME} alligator)
 	target_link_libraries(${EXEC-NAME} ${ALLEGRO_LIBRARIES})
-	target_include_directories(${EXEC-NAME} PUBLIC src/)
+	target_include_directories(${EXEC-NAME} PUBLIC src/lib/)
 	target_include_directories(${EXEC-NAME} PUBLIC module/alligator/src)
 	target_include_directories(${EXEC-NAME} PUBLIC ${ALLEGRO_INCLUDE_DIR})
 	set_target_properties(${EXEC-NAME} PROPERTIES
@@ -43,33 +43,33 @@ function(add_alligator_test EXEC-NAME SRCS)
 	)
 endfunction(add_alligator_test)
 
-
-file(GLOB TESTBED_SOURCES "src/test/**/*.cpp")
-add_alligator_test(letest ${TESTBED_SOURCES})
-
-
-
-#[[
 function(add_xstf_test EXEC-NAME SRCS)
-    add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${SRCS})
-    target_link_libraries(${EXEC-NAME} xstf)
-    target_include_directories(${EXEC-NAME} PUBLIC src/lib)
-    target_include_directories(${EXEC-NAME} PUBLIC module/xstf/src)
-    set_target_properties(${EXEC-NAME} PROPERTIES
-            COMPILE_FLAGS "-std=c++11"
-            LINK_FLAGS "-g -ftest-coverage -fprofile-arcs"
-    )
+	add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${SRCS})
+	target_link_libraries(${EXEC-NAME} xstf)
+	target_include_directories(${EXEC-NAME} PUBLIC src/lib)
+	target_include_directories(${EXEC-NAME} PUBLIC module/xstf/src)
+	set_target_properties(${EXEC-NAME} PROPERTIES
+		    COMPILE_FLAGS "-std=c++11"
+			LINK_FLAGS "-g -ftest-coverage -fprofile-arcs"
+			)
 endfunction(add_xstf_test)
 
-file(GLOB GRAPHIC_TESTBED_FILES "src/test/graphics/*.cpp")
-foreach(file ${GRAPHIC_TESTBED_FILES})
-    get_filename_component(TEST_WE ${file} NAME_WE)
-    add_alligator_testbed(${TEST_WE} ${file})
+
+file(GLOB XFR
+	src/test/graphics/**/*.cpp
+	src/test/graphics/**/*.h)
+
+message("XFR: " ${XFR})
+
+add_alligator_test(testbed ${XFR})
+
+message("BEGIN LIST OF UNIT TESTS ===========")
+
+file(GLOB XSTF_UNIT_TESTS "src/test/unit/*.cpp")
+foreach(file ${XSTF_UNIT_TESTS})
+	get_filename_component(TEST_WE ${file} NAME_WE)
+	message("Test found: [" ${TEST_WE} "]")
+	add_xstf_test(${TEST_WE} ${file})
 endforeach()
 
-file(GLOB XSTF_TEST_FILES "src/test/unit/*.cpp")
-foreach(file ${XSTF_TEST_FILES})
-    get_filename_component(TEST_WE ${file} NAME_WE)
-    add_xstf_test(${TEST_WE} ${file})
-endforeach()
-]]
+message("END LIST OF UNIT TESTS ===========\n")
