@@ -1,5 +1,7 @@
-#include "broadphase.h"
-#include "util.h"
+#include "bruteforcebroadphase.h"
+
+#include "../util.h"
+#include "../icollisionlistener.h"
 
 namespace hadron {
 
@@ -7,27 +9,7 @@ namespace hadron {
 namespace collision
 {
 
-ICollisionListener::~ICollisionListener() {
 
-}
-
-void Broadphase::registerListener(ICollisionListener *listener)
-{
-    m_collisionListeners.push_back(listener);
-}
-
-void Broadphase::unregisterListener(ICollisionListener *listener)
-{
-    util::remove_by_value<ICollisionListener*>( m_collisionListeners, listener );
-}
-
-void Broadphase::collisionHappened(const Body &b1, const Body &b2)
-{
-    for( auto listener : m_collisionListeners )
-    {
-        listener->collisionHappened( b1, b2 );
-    }
-}
 
 BruteForceBroadphase::BruteForceBroadphase()
 {
@@ -70,7 +52,16 @@ void BruteForceBroadphase::unregisterBody(Body::Ptr body)
     util::remove_by_value<Body::Ptr>(m_bodies, body);
 }
 
+void BruteForceBroadphase::visit(IBodyVisitor *visitor)
+{
+    for( auto body : m_bodies )
+    {
+        visitor->visit(body);
+    }
+}
+
 
 }
 
 }
+

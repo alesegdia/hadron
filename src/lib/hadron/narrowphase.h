@@ -8,7 +8,10 @@ namespace collision {
 class DumbNarrowphase
 {
 public:
-    virtual bool resolve(Body::Ptr body);
+    bool resolve(Body::Ptr body)
+    {
+
+    }
 };
 
 }

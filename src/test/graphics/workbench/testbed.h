@@ -13,15 +13,13 @@ public:
     Testbed( int sw, int sh );
     virtual ~Testbed();
 
-    int create(int argc, char **argv) override
-    {
-    }
+    int create(int argc, char **argv) override;
 
     void dispose() override;
 
-	void addTest(TestScreen::Ptr test)
+    void addTest(TestScreen* test)
     {
-		this->m_screens->push_back(std::make_shared<TestScreen>(test));
+        this->m_screens.push_back(std::shared_ptr<TestScreen>(test));
     }
 
     void update(double delta) override
@@ -30,6 +28,6 @@ public:
     }
 
 private:
-	std::vector<std::shared_ptr<TestScreen>> m_screens;
+    std::vector<std::shared_ptr<TestScreen>> m_screens;
 
 };

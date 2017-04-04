@@ -1,9 +1,11 @@
 #pragma once
 
+#include "ibodyvisitor.h"
+
 namespace hadron {
 namespace collision {
 
-template <typename BroadphaseType, typename NarrowphaseType>
+template <typename BroadphaseType>
 class WorldImpl {
 public:
     WorldImpl()
@@ -21,13 +23,18 @@ public:
         m_broadphase.unregisterBody(body);
     }
 
+    void visit(IBodyVisitor* visitor)
+    {
+        m_broadphase.visit(visitor);
+    }
+
 private:
     BroadphaseType m_broadphase;
-    NarrowphaseType m_narrowphase;
+
 };
 
 
-typedef WorldImpl<BruteForceBroadphase, DumbNarrowphase> World;
+typedef WorldImpl<BruteForceBroadphase> World;
 
 
 }

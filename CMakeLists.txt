@@ -17,7 +17,7 @@ set_target_properties(hadron PROPERTIES
 )
 
 message("\nBEGIN LIST OF HADRON SOURCES ========")
-message(${HADRON_SOURCES})
+message("${HADRON_SOURCES}")
 message("END OF LIST OF HADRON SOURCES =======\n")
 
 # TESTS ########################################
@@ -27,11 +27,11 @@ add_subdirectory(module/alligator)
 add_subdirectory(module/xstf)
 
 
-function(add_alligator_test EXEC-NAME SRCS)
-	message("\nBEGIN LIST OF SOURCES =============")
-	message(${SRCS})
-	message("END OF LIST OF SOURCES ============\n")
-	add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${SRCS})
+function(add_alligator_test EXEC-NAME)
+	message("\nBEGIN SOURCES FOR ${EXEC-NAME} =============")
+	message("${ARGN}")
+	message("END SOURCES FOR ${EXEC-NAME} ================\n")
+	add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${ARGN})
 	target_link_libraries(${EXEC-NAME} alligator)
 	target_link_libraries(${EXEC-NAME} ${ALLEGRO_LIBRARIES})
 	target_include_directories(${EXEC-NAME} PUBLIC src/lib/)
@@ -42,6 +42,7 @@ function(add_alligator_test EXEC-NAME SRCS)
 		LINK_FLAGS "-g -ftest-coverage -fprofile-arcs"
 	)
 endfunction(add_alligator_test)
+
 
 function(add_xstf_test EXEC-NAME SRCS)
 	add_executable(${EXEC-NAME} ${HADRON_SOURCES} ${SRCS})
@@ -54,14 +55,14 @@ function(add_xstf_test EXEC-NAME SRCS)
 			)
 endfunction(add_xstf_test)
 
-
-file(GLOB XFR
+file(GLOB_RECURSE TESTBED_SOURCES
 	src/test/graphics/**/*.cpp
 	src/test/graphics/**/*.h)
 
-message("XFR: " ${XFR})
 
-add_alligator_test(testbed ${XFR})
+message(${TESTBED_SOURCES})
+
+add_alligator_test(testbed ${TESTBED_SOURCES})
 
 message("BEGIN LIST OF UNIT TESTS ===========")
 

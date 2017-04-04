@@ -7,15 +7,17 @@ class TestScreen : public IScreen
 {
 public:
 	virtual ~TestScreen() = 0;
+
+    void show() override;
+    void hide() override;
+
     void update(double delta) override;
-    void render();
+    void render() override;
 
 protected:
-	void addBody(hadron::collision::Body::Ptr b)
-    {
-
-    }
+    void addBody(hadron::collision::Body::Ptr b);
 
 private:
-    hadron::collision::World m_world;
+    std::shared_ptr<hadron::collision::World> m_world;
+
 };

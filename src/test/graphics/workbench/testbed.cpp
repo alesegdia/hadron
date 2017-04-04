@@ -14,7 +14,7 @@ Testbed::~Testbed()
 int Testbed::create(int argc, char **argv)
 {
     int retcode = 1;
-    if( m_screens->size() > 0 ) {
+    if( m_screens.size() > 0 ) {
         retcode = 0;
         setScreen(m_screens[0]);
     }
