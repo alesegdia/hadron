@@ -4,7 +4,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_HOME_DIRECTORY}/bin)
 
 if(WIN32)
-	list(APPEND CMAKE_EXE_LINKER_FLAGS "-static-libstdc++ -static-libgcc")
+	list(APPEND CMAKE_EXE_LINKER_FLAGS "-static-libstdc++ -g -static-libgcc")
 endif()
 
 # CORE LIBRARY ################################
@@ -56,8 +56,8 @@ function(add_xstf_test EXEC-NAME SRCS)
 endfunction(add_xstf_test)
 
 file(GLOB_RECURSE TESTBED_SOURCES
-	src/test/graphics/**/*.cpp
-	src/test/graphics/**/*.h)
+	src/test/graphics/*.cpp
+	src/test/graphics/*.h)
 
 
 message(${TESTBED_SOURCES})

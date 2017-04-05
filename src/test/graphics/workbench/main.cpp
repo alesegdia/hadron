@@ -7,7 +7,7 @@
 
 int main(int argc, char** argv) {
     Testbed testbed(800, 600);
-    TestScreen* test_debug = new Test_Debug();
+    TestScreen* test_debug = new Test_Debug;
     testbed.addTest(test_debug);
     return testbed.exec(argc, argv);
 }

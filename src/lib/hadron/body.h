@@ -10,6 +10,9 @@ namespace collision {
 
 struct AABB
 {
+    AABB() : x(0), y(0), width(0), height(0) {}
+    AABB(float x_, float y_, float w_, float h_)
+        : x(x_), y(y_), width(w_), height(h_) {}
     float x, y, width, height;
 };
 
@@ -29,8 +32,26 @@ public:
 class Body
 {
 public:
+    Body(const AABB& aabb)
+    {
+        this->aabb(aabb);
+    }
+
+    Body(float x, float y, float w, float h)
+    {
+        this->aabb(AABB(x, y, w, h));
+    }
+
+    Body()
+    {
+
+    }
 
     typedef Body* Ptr;
+    void aabb(const AABB& other)
+    {
+        this->m_aabb = other;
+    }
 
     static bool collides(const Body& b1, const Body& b2);
 

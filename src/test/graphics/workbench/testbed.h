@@ -6,6 +6,8 @@
 #include <memory>
 #include "testscreen.h"
 
+#include <allegro5/allegro_font.h>
+
 
 class Testbed : public Game {
 public:
@@ -17,17 +19,19 @@ public:
 
     void dispose() override;
 
-    void addTest(TestScreen* test)
-    {
-        this->m_screens.push_back(std::shared_ptr<TestScreen>(test));
-    }
+    void addTest(TestScreen* test);
 
-    void update(double delta) override
-    {
-        // handle screen (gui-test) change with keyboard
-    }
+    void update(double delta) override;
+
+    void render() override;
 
 private:
-    std::vector<std::shared_ptr<TestScreen>> m_screens;
 
+    void selectScreen(int screen_id);
+
+    std::shared_ptr<TestScreen> selectedScreen();
+
+    std::vector<std::shared_ptr<TestScreen>> m_screens;
+    ALLEGRO_FONT* m_font;
+    int m_selected = 0;
 };

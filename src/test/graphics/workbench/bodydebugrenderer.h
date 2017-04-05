@@ -12,9 +12,9 @@ public:
     {
         const hadron::collision::AABB& r = body->aabb();
         al_draw_filled_rectangle(
-                    r.x(), r.y(),
-                    r.x() + r.width(),
-                    r.y() + r.height(),
+                    r.x, r.y,
+                    r.x + r.width,
+                    r.y + r.height,
                     al_map_rgb(255, 0, 0));
     }
 };
