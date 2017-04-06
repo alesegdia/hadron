@@ -55,7 +55,7 @@ public:
 
     static bool collides(const Body& b1, const Body& b2);
 
-    const void* userData() const;
+    void *userData();
 
     void userData( void* userData );
 

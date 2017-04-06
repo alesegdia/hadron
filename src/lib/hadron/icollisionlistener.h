@@ -12,12 +12,11 @@ public:
 
     virtual ~ICollisionListener() = 0 ;
 
-    /**
-     * @brief collisionHappened
-     * @param b1
-     * @param b2
-     */
-    virtual void collisionHappened( const Body& b1, const Body& b2 ) = 0;
+    virtual void onCollisionEnter( Body& b1, Body& b2 );
+
+    virtual void onCollision( Body& b1, Body& b2 );
+
+    virtual void onCollisionExit( Body& b1, Body& b2 );
 
 };
 

@@ -1,6 +1,9 @@
 #pragma once
 
+#include <hadron/hadron.h>
+
 #include "workbench/testscreen.h"
+
 
 class Test_Debug : public TestScreen
 {
@@ -9,7 +12,9 @@ public:
 
     void setup () override
     {
-        auto body = new hadron::collision::Body(0, 0, 50, 50);
-        addBody(body);
+        createBody(0, 0, 50, 50);
     }
+
+private:
+
 };

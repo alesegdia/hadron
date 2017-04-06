@@ -30,8 +30,8 @@ void BruteForceBroadphase::step()
     {
         for( int idb2 = idb1 + 1; idb2 < m_bodies.size(); idb2++ )
         {
-            const Body& b1 = *m_bodies[idb1];
-            const Body& b2 = *m_bodies[idb2];
+            Body& b1 = *m_bodies[idb1];
+            Body& b2 = *m_bodies[idb2];
 
             if( true == Body::collides( b1, b2 ) )
             {

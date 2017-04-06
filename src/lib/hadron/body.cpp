@@ -19,7 +19,7 @@ bool Body::collides(const Body &rect1, const Body &rect2)
 
 }
 
-const void *Body::userData() const {
+void *Body::userData() {
     return m_userdata;
 }
 
