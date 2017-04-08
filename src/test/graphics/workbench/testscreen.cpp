@@ -14,7 +14,7 @@ void TestScreen::show()
 {
     m_world.reset(new hadron::collision::World());
     setup();
-    this->world()->registerListener(&m_listener);
+    m_world->registerListener(&m_listener);
 }
 
 void TestScreen::hide()
@@ -24,11 +24,13 @@ void TestScreen::hide()
 
 void TestScreen::update(double delta)
 {
-    m_world->step();
+    step();
+    m_world->update();
 }
 
 void TestScreen::render()
 {
+    al_clear_to_color(al_map_rgb(0,0,0));
     m_world->visit(&m_bodyDebugRenderer);
 }
 

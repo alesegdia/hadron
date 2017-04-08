@@ -10,6 +10,8 @@ static const float HDRN_ZERO_THRESHOLD = 0.001f;
 
 struct Vec2
 {
+    Vec2(){}
+    Vec2(float x_, float y_) : x(x_), y(y_) {}
     float x = 0;
     float y = 0;
 

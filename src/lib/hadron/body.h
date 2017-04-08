@@ -10,6 +10,8 @@ namespace collision {
 
 struct AABB
 {
+    static bool collides(const AABB& b1, const AABB& b2);
+
     AABB() : x(0), y(0), width(0), height(0) {}
     AABB(float x_, float y_, float w_, float h_)
         : x(x_), y(y_), width(w_), height(h_) {}
@@ -53,8 +55,6 @@ public:
         this->m_aabb = other;
     }
 
-    static bool collides(const Body& b1, const Body& b2);
-
     void *userData();
 
     void userData( void* userData );
@@ -78,6 +78,8 @@ public:
             m_previousPosition = new_position;
         }
         m_currentPosition = new_position;
+        m_aabb.x = new_position.x;
+        m_aabb.y = new_position.y;
     }
 
     void destroy()

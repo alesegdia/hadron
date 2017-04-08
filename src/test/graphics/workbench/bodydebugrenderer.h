@@ -5,6 +5,8 @@
 
 #include <allegro5/allegro_primitives.h>
 
+#include "entity.h"
+
 class BodyDebugRenderer : public hadron::collision::IBodyVisitor
 {
 public:
@@ -18,10 +20,14 @@ public:
                     r.y + r.height,
                     al_map_rgb(255, 0, 0));
         */
+        auto e = static_cast<Entity*>(body->userData());
+
+        ALLEGRO_COLOR c = e->colliding ? al_map_rgb(255,0,0) : al_map_rgb(0,0,255);
+
         al_draw_rectangle(
                     r.x, r.y,
                     r.x + r.width,
                     r.y + r.height,
-                    al_map_rgb(255, 0, 0), 4.0f);
+                    c, 4.0f);
     }
 };

@@ -4,33 +4,24 @@
 #include <hadron/hadron.h>
 
 #include "bodydebugrenderer.h"
-
-
-struct Entity
-{
-    // tells if the entity just started a collision in the last frame
-    bool just_collided = false;
-
-    // tells if the entity collides in the last frame
-    bool colliding = false;
-};
+#include "entity.h"
 
 class CollisionListener : public hadron::collision::ICollisionListener
 {
 public:
-    void collisionHappened(const hadron::collision::Body &b1, const hadron::collision::Body &b2)
+    void onCollisionEnter(hadron::collision::Body &b1, hadron::collision::Body &b2)
     {
         auto e1 = static_cast<Entity*>(b1.userData());
         auto e2 = static_cast<Entity*>(b2.userData());
-        if( !e1->colliding )
-        {
-            e1->just_collided = true;
-        }
-        e1->colliding = true;
-        e2->colliding = true;
+        e1->colliding = e2->colliding = true;
     }
 
-    void handle
+    void onCollisionExit(hadron::collision::Body &b1, hadron::collision::Body &b2)
+    {
+        auto e1 = static_cast<Entity*>(b1.userData());
+        auto e2 = static_cast<Entity*>(b2.userData());
+        e1->colliding = e2->colliding = false;
+    }
 };
 
 
@@ -57,6 +48,8 @@ public:
 
     void cleanAllEntities();
 
+    virtual void step() = 0 ;
+
 protected:
 
     BodyPtr createBody(float x, float y, float w, float h);
@@ -68,5 +61,6 @@ private:
     WorldSharedPtr m_world;
     BodyDebugRenderer m_bodyDebugRenderer;
     std::vector<Entity*> m_entities;
+    CollisionListener m_listener;
 
 };

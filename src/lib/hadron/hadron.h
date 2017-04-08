@@ -11,6 +11,7 @@
 #include "icollisionlistener.h"
 #include "broadphase/broadphase.h"
 #include "broadphase/bruteforcebroadphase.h"
-#include "narrowphase.h"
+#include "narrowphase/narrowphase.h"
+#include "narrowphase/aabbnarrowphase.h"
 #include "world.h"
 

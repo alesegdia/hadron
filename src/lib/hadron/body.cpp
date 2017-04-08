@@ -7,12 +7,12 @@ IBodyObserver::~IBodyObserver() {
 
 }
 
-bool Body::collides(const Body &rect1, const Body &rect2)
+bool AABB::collides(const AABB &b1, const AABB &b2)
 {
-    if ( rect1.aabb().x < rect2.aabb().x + rect2.aabb().width  &&
-         rect1.aabb().x + rect1.aabb().width > rect2.aabb().x  &&
-         rect1.aabb().y < rect2.aabb().y + rect2.aabb().height &&
-         rect1.aabb().height + rect1.aabb().y > rect2.aabb().y )
+    if ( b1.x < b2.x + b2.width  &&
+         b1.x + b1.width > b2.x  &&
+         b1.y < b2.y + b2.height &&
+         b1.height + b1.y > b2.y )
     {
         return true;
     }
