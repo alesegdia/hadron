@@ -81,7 +81,7 @@ public:
         {
             if( cpd.b1.dirty() || cpd.b2.dirty() )
             {
-                bool collided = m_narrowphase.resolve(cpd.b1, cpd.b2);
+                bool collided = this->resolve(cpd.b1, cpd.b2);
                 if( !collided )
                 {
                     dispatchCollisionEvent(&Broadphase::emitCollisionExit, cpd.b1, cpd.b2);
@@ -101,7 +101,12 @@ protected:
         }
     }
 
-    NarrowphaseType& narrowphase()
+    bool resolve( const Body& b1, const Body& b2 ) const
+    {
+        return narrowphase().resolve(b1, b2);
+    }
+
+    const NarrowphaseType& narrowphase() const
     {
         return m_narrowphase;
     }

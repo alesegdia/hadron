@@ -14,7 +14,7 @@ public:
 
     }
 
-    bool resolve(Body& b1, Body& b2)
+    bool resolve(const Body& b1, const Body& b2) const
     {
         return AABB::collides(b1.aabb(), b2.aabb());
     }

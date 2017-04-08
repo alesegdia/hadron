@@ -33,7 +33,7 @@ void BruteForceBroadphase::step()
             Body& b1 = *m_bodies[idb1];
             Body& b2 = *m_bodies[idb2];
 
-            if( true == AABB::collides( b1.aabb(), b2.aabb() ) )
+            if( true == narrowphase().resolve(b1, b2) )
             {
                 collisionHappened( b1, b2 );
             }

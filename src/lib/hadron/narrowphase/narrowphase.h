@@ -10,7 +10,7 @@ class Narrowphase
 public:
     virtual ~Narrowphase();
 
-    virtual bool resolve(Body& b1, Body& b2) = 0 ;
+    virtual bool resolve(const Body& b1, const Body& b2) const = 0 ;
 };
 
 }
