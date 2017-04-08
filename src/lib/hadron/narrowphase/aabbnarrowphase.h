@@ -16,7 +16,7 @@ public:
 
     bool resolve(Body& b1, Body& b2)
     {
-        return Body::collides(b1, b2);
+        return AABB::collides(b1.aabb(), b2.aabb());
     }
 };
 

@@ -26,6 +26,13 @@ public:
 
     void visit(IBodyVisitor *visitor) override;
 
+    virtual std::vector<Body*>&& queryAABB( const AABB& aabb )
+    {
+        std::vector<Body*> ret;
+        return std::move(ret);
+    }
+
+
 private:
 
     std::vector<Body::Ptr> m_bodies;

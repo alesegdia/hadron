@@ -7,16 +7,12 @@ IBodyObserver::~IBodyObserver() {
 
 }
 
-bool Body::collides(const Body &rect1, const Body &rect2)
+bool AABB::collides(const AABB &aabb1, const AABB &aabb2)
 {
-    if ( rect1.aabb().x < rect2.aabb().x + rect2.aabb().width  &&
-         rect1.aabb().x + rect1.aabb().width > rect2.aabb().x  &&
-         rect1.aabb().y < rect2.aabb().y + rect2.aabb().height &&
-         rect1.aabb().height + rect1.aabb().y > rect2.aabb().y )
-    {
-        return true;
-    }
-
+    return  aabb1.x < aabb2.x + aabb2.width  &&
+            aabb1.x + aabb1.width > aabb2.x  &&
+            aabb1.y < aabb2.y + aabb2.height &&
+            aabb1.height + aabb1.y > aabb2.y;
 }
 
 void *Body::userData() {
