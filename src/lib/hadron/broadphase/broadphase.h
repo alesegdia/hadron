@@ -81,7 +81,7 @@ public:
         {
             if( cpd.b1.dirty() || cpd.b2.dirty() )
             {
-                bool collided = this->resolve(cpd.b1, cpd.b2);
+                bool collided = resolve(cpd.b1, cpd.b2);
                 if( !collided )
                 {
                     dispatchCollisionEvent(&Broadphase::emitCollisionExit, cpd.b1, cpd.b2);
