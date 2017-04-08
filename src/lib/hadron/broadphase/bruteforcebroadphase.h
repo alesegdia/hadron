@@ -26,10 +26,18 @@ public:
 
     void visit(IBodyVisitor *visitor) override;
 
-    virtual std::vector<Body*>&& queryAABB( const AABB& aabb )
+    virtual std::vector<Body*> queryAABB( const AABB& aabb )
     {
         std::vector<Body*> ret;
-        return std::move(ret);
+        Body test_body(aabb);
+        for( int i = 0; i < m_bodies.size(); i++ )
+        {
+            if( resolve(test_body, *m_bodies[i]) )
+            {
+                ret.push_back(m_bodies[i]);
+            }
+        }
+        return ret;
     }
 
 

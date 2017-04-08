@@ -7,5 +7,7 @@ struct Entity
 
     // tells if the entity collides in the last frame
     bool colliding = false;
+
+    int queried = 0;
 };
 

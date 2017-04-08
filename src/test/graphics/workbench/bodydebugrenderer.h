@@ -23,6 +23,10 @@ public:
         auto e = static_cast<Entity*>(body->userData());
 
         ALLEGRO_COLOR c = e->colliding ? al_map_rgb(255,0,0) : al_map_rgb(0,0,255);
+        if( e->queried > 0 )
+        {
+            c = al_map_rgb(0,255,0);
+        }
 
         al_draw_rectangle(
                     r.x, r.y,

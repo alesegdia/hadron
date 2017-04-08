@@ -50,9 +50,20 @@ public:
 
     virtual void step() = 0 ;
 
+    virtual void draw() = 0 ;
+
 protected:
 
     BodyPtr createBody(float x, float y, float w, float h);
+    std::vector<Entity*>& entities()
+    {
+        return m_entities;
+    }
+
+    WorldSharedPtr world()
+    {
+        return m_world;
+    }
 
 private:
 

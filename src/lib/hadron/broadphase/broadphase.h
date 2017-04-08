@@ -32,7 +32,7 @@ public:
 
     }
 
-    virtual std::vector<Body*>&& queryAABB( const AABB& aabb ) = 0 ;
+    virtual std::vector<Body*> queryAABB( const AABB& aabb ) = 0 ;
 
     typedef void (Broadphase::*Method)(ICollisionListener*, Body&, Body&);
 

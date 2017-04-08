@@ -32,6 +32,7 @@ void TestScreen::render()
 {
     al_clear_to_color(al_map_rgb(0,0,0));
     m_world->visit(&m_bodyDebugRenderer);
+    draw();
 }
 
 const char *TestScreen::name()
