@@ -90,11 +90,6 @@ public:
         }
     }
 
-    bool resolve( const Body& b1, const Body& b2 ) const
-    {
-        return narrowphase().resolve(b1, b2);
-    }
-
 protected:
     void collisionHappened( Body& b1, Body& b2 )
     {
@@ -106,7 +101,7 @@ protected:
         }
     }
 
-    const NarrowphaseType& narrowphase() const
+    NarrowphaseType& narrowphase()
     {
         return m_narrowphase;
     }
