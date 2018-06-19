@@ -71,12 +71,13 @@ public:
         return m_currentPosition;
     }
 
-    void setPosition( math::Vec2& new_position )
+    void setPosition( const math::Vec2& new_position )
     {
+        // might be worth to check if newpos != currentpos or might not
         if( !m_dirty )
         {
             m_dirty = true;
-            m_previousPosition = new_position;
+            m_previousPosition = m_currentPosition;
         }
         m_currentPosition = new_position;
         m_aabb.x = new_position.x;
@@ -90,6 +91,11 @@ public:
             std::cout << "WARNING: trying to destroy an already dead body" << std::endl;
         }
         m_alive = false;
+    }
+
+    void clearDirty()
+    {
+        m_dirty = false;
     }
 
     AABB m_aabb;
