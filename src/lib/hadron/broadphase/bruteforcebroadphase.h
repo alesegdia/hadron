@@ -30,7 +30,7 @@ public:
     {
         std::vector<Body*> ret;
         Body test_body(aabb);
-        for( int i = 0; i < m_bodies.size(); i++ )
+        for( size_t i = 0; i < m_bodies.size(); i++ )
         {
             if( resolve(test_body, *m_bodies[i]) )
             {

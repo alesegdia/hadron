@@ -26,13 +26,13 @@ BruteForceBroadphase::~BruteForceBroadphase()
 
 void BruteForceBroadphase::step()
 {
-    for( int idb1 = 0; idb1 < m_bodies.size(); idb1++ )
+    for( size_t idb1 = 0; idb1 < m_bodies.size(); idb1++ )
     {
         Body& b1 = *m_bodies[idb1];
         if( b1.dirty() )
         {
             b1.clearDirty();
-            for( int idb2 = idb1 + 1; idb2 < m_bodies.size(); idb2++ )
+            for( size_t idb2 = idb1 + 1; idb2 < m_bodies.size(); idb2++ )
             {
                 Body& b2 = *m_bodies[idb2];
 
