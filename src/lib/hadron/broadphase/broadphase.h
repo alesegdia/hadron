@@ -95,10 +95,6 @@ protected:
     {
         m_collisions.push_back(CollisionPairData(b1, b2));
         dispatchCollisionEvent(&Broadphase::emitCollisionEnter, b1, b2);
-        for( auto listener : m_collisionListeners )
-        {
-            listener->onCollisionEnter( b1, b2 );
-        }
     }
 
     bool resolve( const Body& b1, const Body& b2 ) const
