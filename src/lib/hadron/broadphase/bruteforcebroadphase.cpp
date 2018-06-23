@@ -29,17 +29,13 @@ void BruteForceBroadphase::step()
     for( size_t idb1 = 0; idb1 < m_bodies.size(); idb1++ )
     {
         Body& b1 = *m_bodies[idb1];
-        if( b1.dirty() )
+        for( size_t idb2 = idb1 + 1; idb2 < m_bodies.size(); idb2++ )
         {
-            b1.clearDirty();
-            for( size_t idb2 = idb1 + 1; idb2 < m_bodies.size(); idb2++ )
-            {
-                Body& b2 = *m_bodies[idb2];
+            Body& b2 = *m_bodies[idb2];
 
-                if( true == resolve(b1, b2) )
-                {
-                    collisionHappened( b1, b2 );
-                }
+            if( true == resolve(b1, b2) )
+            {
+                collisionHappened( b1, b2 );
             }
         }
     }

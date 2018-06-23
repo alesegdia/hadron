@@ -35,18 +35,21 @@ class Body
 {
 public:
     Body(const AABB& aabb)
+        : m_aabb(aabb)
     {
-        this->aabb(aabb);
+        internal_setPosition(aabb.x, aabb.y);
     }
 
     Body(float x, float y, float w, float h)
+        : m_aabb(AABB(x, y, w, h))
     {
-        this->aabb(AABB(x, y, w, h));
+        internal_setPosition(x, y);
     }
 
     Body()
+        : m_aabb(AABB(0, 0, 0, 0))
     {
-
+        internal_setPosition(0, 0);
     }
 
     typedef Body* Ptr;
@@ -54,7 +57,6 @@ public:
     {
         this->m_aabb = other;
     }
-
 
     void *userData();
 
@@ -79,9 +81,15 @@ public:
             m_dirty = true;
             m_previousPosition = m_currentPosition;
         }
+
         m_currentPosition = new_position;
         m_aabb.x = new_position.x;
         m_aabb.y = new_position.y;
+    }
+
+    void setPosition( float x, float y )
+    {
+        setPosition(math::Vec2(x, y));
     }
 
     void destroy()
@@ -107,6 +115,14 @@ public:
 
 private:
 
+    void internal_setPosition(float x, float y)
+    {
+        m_currentPosition.x = x;
+        m_currentPosition.y = y;
+        m_aabb.x = x;
+        m_aabb.y = y;
+    }
+
     /**
      * @brief m_position current position
      */
@@ -130,7 +146,7 @@ private:
     /**
      * @brief m_dirty indicates if the body has been moved but not still processed
      */
-    bool m_dirty = false;
+    bool m_dirty = true;
 
     /**
      * @brief m_userdata user data to retrieve on collision callback

@@ -6,7 +6,7 @@ namespace hadron {
 namespace math
 {
 
-static const float HDRN_ZERO_THRESHOLD = 0.001f;
+static const float HDRN_ZERO_THRESHOLD = 0.000000001f;
 
 struct Vec2
 {
