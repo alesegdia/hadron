@@ -3,10 +3,7 @@
 namespace hadron {
 
 
-namespace math
-{
-
-static const float HDRN_ZERO_THRESHOLD = 0.000000001f;
+static const float HADRON_EPSILON = 0.000000001f;
 
 struct Vec2
 {
@@ -29,7 +26,6 @@ bool operator==( const Vec2& a, const Vec2& b );
 
 bool operator!=( const Vec2& a, const Vec2& b );
 
-}
 
 }
 

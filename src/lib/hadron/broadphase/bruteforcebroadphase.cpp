@@ -49,7 +49,7 @@ void BruteForceBroadphase::registerBody(Body::Ptr body)
 
 void BruteForceBroadphase::unregisterBody(Body::Ptr body)
 {
-    util::remove_by_value<Body::Ptr>(m_bodies, body);
+    remove_by_value<Body::Ptr>(m_bodies, body);
 }
 
 void BruteForceBroadphase::visit(IBodyVisitor *visitor)

@@ -1,34 +1,12 @@
 #pragma once
 
-#include "math.h"
-
 #include <iostream>
 
+#include "math.h"
+#include "aabb.h"
+
+
 namespace hadron {
-namespace collision {
-
-
-struct AABB
-{
-    static bool collides(const AABB& b1, const AABB& b2);
-
-    AABB() : x(0), y(0), width(0), height(0) {}
-    AABB(float x_, float y_, float w_, float h_)
-        : x(x_), y(y_), width(w_), height(h_) {}
-    float x, y, width, height;
-};
-
-
-class Body;
-
-
-class IBodyObserver {
-public:
-    virtual ~IBodyObserver() = 0 ;
-
-    virtual void onBodyInserted( Body* b ) = 0 ;
-    virtual void onBodyRemoved( Body* b ) = 0 ;
-};
 
 
 class Body
@@ -68,12 +46,12 @@ public:
      */
     bool dirty();
 
-    const math::Vec2& position()
+    const Vec2& position()
     {
         return m_currentPosition;
     }
 
-    void setPosition( const math::Vec2& new_position )
+    void setPosition( const Vec2& new_position )
     {
         // might be worth to check if newpos != currentpos or might not
         if( !m_dirty )
@@ -89,7 +67,7 @@ public:
 
     void setPosition( float x, float y )
     {
-        setPosition(math::Vec2(x, y));
+        setPosition(Vec2(x, y));
     }
 
     void destroy()
@@ -126,12 +104,12 @@ private:
     /**
      * @brief m_position current position
      */
-    math::Vec2 m_currentPosition;
+    Vec2 m_currentPosition;
 
     /**
      * @brief m_prevPos previous position used to compute bullet-like bodies collision
      */
-    math::Vec2 m_previousPosition;
+    Vec2 m_previousPosition;
 
     /**
      * @brief m_w width
@@ -160,5 +138,4 @@ private:
 };
 
 
-}
 }

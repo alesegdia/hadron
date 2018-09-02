@@ -3,7 +3,6 @@
 #include "body.h"
 
 namespace hadron {
-namespace collision {
 
 
 class ICollisionListener {
@@ -21,5 +20,4 @@ public:
 };
 
 
-}
 }

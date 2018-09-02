@@ -10,7 +10,6 @@
 #include "../util.h"
 
 namespace hadron {
-namespace collision {
 
 /**
  * We care about CollisionListener memory management only if it's registered on shutdown
@@ -72,7 +71,7 @@ public:
     }
     void unregisterListener( ICollisionListener* listener )
     {
-        util::remove_by_value<ICollisionListener*>( m_collisionListeners, listener );
+        remove_by_value<ICollisionListener*>( m_collisionListeners, listener );
     }
 
     void collisionStep()
@@ -115,5 +114,4 @@ private:
 };
 
 
-}
 }

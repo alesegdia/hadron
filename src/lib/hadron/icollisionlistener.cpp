@@ -1,7 +1,6 @@
 #include "icollisionlistener.h"
 
 namespace hadron {
-namespace collision {
 
 
 ICollisionListener::~ICollisionListener() {
@@ -27,5 +26,4 @@ void ICollisionListener::onCollisionExit(Body &b1, Body &b2)
 }
 
 
-}
 }
