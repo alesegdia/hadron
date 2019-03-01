@@ -6,6 +6,7 @@
 namespace hadron {
 namespace collision {
 
+
 class AABBNarrowphase
 {
 public:
@@ -14,9 +15,9 @@ public:
 
     }
 
-    bool resolve(const Body& b1, const Body& b2) const
+    CollisionInfo resolve(const Body& b1, const Body& b2) const
     {
-        return AABB::collides(b1.aabb(), b2.aabb());
+        return AABB::checkCollision(b1.aabb(), b2.aabb());
     }
 };
 

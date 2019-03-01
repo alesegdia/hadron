@@ -34,10 +34,11 @@ public:
     virtual std::vector<Body*> queryAABB( const AABB& aabb ) = 0 ;
 
     typedef void (Broadphase::*Method)(ICollisionListener*, Body&, Body&);
+    typedef void (Broadphase::*Method2)(ICollisionListener*, Body&, Body&, CollisionResult);
 
-    void emitCollisionEnter(ICollisionListener* listener, Body& b1, Body& b2)
+    void emitCollisionEnter(ICollisionListener* listener, Body& b1, Body& b2, CollisionResult cr)
     {
-        listener->onCollisionEnter( b1, b2 );
+        listener->onCollisionEnter( b1, b2, cr );
     }
 
     void emitCollisionExit(ICollisionListener* listener, Body& b1, Body& b2)
@@ -49,6 +50,13 @@ public:
     {
         for( auto listener : m_collisionListeners ) {
             (this->*m)(listener, b1, b2);
+        }
+    }
+
+    void dispatchCollisionEvent(Method2 m, Body& b1, Body& b2, CollisionResult cr)
+    {
+        for( auto listener : m_collisionListeners ) {
+            (this->*m)(listener, b1, b2, cr);
         }
     }
 
@@ -80,8 +88,8 @@ public:
         {
             if( cpd.b1.dirty() || cpd.b2.dirty() )
             {
-                bool collided = resolve(cpd.b1, cpd.b2);
-                if( !collided )
+                auto result = resolve(cpd.b1, cpd.b2);
+                if( !result.colinfo.collides )
                 {
                     dispatchCollisionEvent(&Broadphase::emitCollisionExit, cpd.b1, cpd.b2);
                 }
@@ -90,15 +98,19 @@ public:
     }
 
 protected:
-    void collisionHappened( Body& b1, Body& b2 )
+    void collisionHappened( Body& b1, Body& b2, CollisionResult cr )
     {
         m_collisions.push_back(CollisionPairData(b1, b2));
-        dispatchCollisionEvent(&Broadphase::emitCollisionEnter, b1, b2);
+        dispatchCollisionEvent(&Broadphase::emitCollisionEnter, b1, b2, cr);
     }
-
-    bool resolve( const Body& b1, const Body& b2 ) const
+    
+    CollisionResult resolve( const Body& b1, const Body& b2 ) const
     {
-        return narrowphase().resolve(b1, b2);
+        CollisionResult cr;
+        cr.colinfo = narrowphase().resolve(b1, b2);
+        cr.b1 = &b1;
+        cr.b2 = &b2;
+        return cr;
     }
 
     const NarrowphaseType& narrowphase() const

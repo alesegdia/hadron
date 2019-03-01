@@ -32,7 +32,8 @@ public:
         Body test_body(aabb);
         for( size_t i = 0; i < m_bodies.size(); i++ )
         {
-            if( resolve(test_body, *m_bodies[i]) )
+            auto result = resolve(test_body, *m_bodies[i]);
+            if( result.colinfo.collides )
             {
                 ret.push_back(m_bodies[i]);
             }

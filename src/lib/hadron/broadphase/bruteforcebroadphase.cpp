@@ -33,9 +33,10 @@ void BruteForceBroadphase::step()
         {
             Body& b2 = *m_bodies[idb2];
 
-            if( true == resolve(b1, b2) )
+            auto result = resolve(b1, b2);
+            if( result.colinfo.collides )
             {
-                collisionHappened( b1, b2 );
+                collisionHappened( b1, b2, result );
             }
         }
     }

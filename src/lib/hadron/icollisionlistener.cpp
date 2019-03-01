@@ -7,7 +7,7 @@ ICollisionListener::~ICollisionListener() {
 
 }
 
-void ICollisionListener::onCollisionEnter(Body &b1, Body &b2)
+void ICollisionListener::onCollisionEnter(Body &b1, Body &b2, CollisionResult result)
 {
     (void)b1;
     (void)b2;

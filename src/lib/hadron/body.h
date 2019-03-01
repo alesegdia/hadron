@@ -8,7 +8,6 @@
 
 namespace hadron {
 
-
 class Body
 {
 public:
