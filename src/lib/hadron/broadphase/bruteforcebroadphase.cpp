@@ -12,9 +12,7 @@ namespace collision
 
 
 BruteForceBroadphase::BruteForceBroadphase()
-{
-
-}
+= default;
 
 BruteForceBroadphase::~BruteForceBroadphase()
 {

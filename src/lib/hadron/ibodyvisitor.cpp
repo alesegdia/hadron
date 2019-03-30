@@ -3,9 +3,7 @@
 namespace hadron {
 
 
-IBodyVisitor::~IBodyVisitor() {
-
-}
+IBodyVisitor::~IBodyVisitor() = default;
 
 
 }

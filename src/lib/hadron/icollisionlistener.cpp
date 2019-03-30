@@ -3,9 +3,7 @@
 namespace hadron {
 
 
-ICollisionListener::~ICollisionListener() {
-
-}
+ICollisionListener::~ICollisionListener() = default;
 
 void ICollisionListener::onCollisionEnter(Body &b1, Body &b2, CollisionResult result)
 {

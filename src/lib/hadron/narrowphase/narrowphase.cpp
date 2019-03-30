@@ -5,9 +5,7 @@ namespace hadron {
 namespace collision {
 
 Narrowphase::~Narrowphase()
-{
-
-}
+= default;
 
 }
 }
