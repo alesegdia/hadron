@@ -4,7 +4,7 @@
 namespace hadron {
 
 
-bool AABB::collides(const AABB &aabb1, const AABB &aabb2)
+bool AABB::Collides(const AABB &aabb1, const AABB &aabb2)
 {
     
     return  aabb1.x < aabb2.x + aabb2.width  &&
@@ -13,7 +13,7 @@ bool AABB::collides(const AABB &aabb1, const AABB &aabb2)
             aabb1.height + aabb1.y > aabb2.y;
 }
 
-CollisionInfo AABB::computeOrientation(const AABB& b1, const AABB& b2)
+CollisionInfo AABB::ComputeOrientation(const AABB& b1, const AABB& b2)
 {
     CollisionInfo info;
     auto c1x = b1.x + b1.width / 2;

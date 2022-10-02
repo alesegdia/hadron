@@ -18,11 +18,11 @@ public:
 
     virtual ~ICollisionListener() = 0 ;
 
-    virtual void onCollisionEnter( Body& b1, Body& b2, CollisionResult cr );
+    virtual void OnCollisionEnter( Body& b1, Body& b2, CollisionResult cr );
 
-    virtual void onCollision( Body& b1, Body& b2 );
+    virtual void OnCollisionStay( Body& b1, Body& b2 );
 
-    virtual void onCollisionExit( Body& b1, Body& b2 );
+    virtual void OnCollisionExit( Body& b1, Body& b2 );
 
 };
 

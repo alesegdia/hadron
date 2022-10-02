@@ -22,7 +22,7 @@ BruteForceBroadphase::~BruteForceBroadphase()
     }
 }
 
-void BruteForceBroadphase::step()
+void BruteForceBroadphase::Step()
 {
     for( size_t idb1 = 0; idb1 < m_bodies.size(); idb1++ )
     {
@@ -31,27 +31,27 @@ void BruteForceBroadphase::step()
         {
             Body& b2 = *m_bodies[idb2];
 
-            auto result = resolve(b1, b2);
+            auto result = Resolve(b1, b2);
             if( result.colinfo.collides )
             {
-                collisionHappened( b1, b2, result );
+                CollisionHappened( b1, b2, result );
             }
         }
     }
 }
 
-void BruteForceBroadphase::registerBody(Body::Ptr body)
+void BruteForceBroadphase::RegisterBody(Body::Ptr body)
 {
     m_bodies.push_back( body );
     //return *m_bodies.end();
 }
 
-void BruteForceBroadphase::unregisterBody(Body::Ptr body)
+void BruteForceBroadphase::UnregisterBody(Body::Ptr body)
 {
-    remove_by_value<Body::Ptr>(m_bodies, body);
+    RemoveByValue<Body::Ptr>(m_bodies, body);
 }
 
-void BruteForceBroadphase::visit(IBodyVisitor *visitor)
+void BruteForceBroadphase::Visit(IBodyVisitor *visitor)
 {
     for( auto body : m_bodies )
     {

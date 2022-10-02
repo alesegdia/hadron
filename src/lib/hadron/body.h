@@ -11,94 +11,42 @@ namespace hadron {
 class Body
 {
 public:
-    Body(const AABB& aabb)
-        : m_aabb(aabb)
-    {
-        internal_setPosition(aabb.x, aabb.y);
-    }
+    Body(const AABB& aabb);
 
-    Body(float x, float y, float w, float h)
-        : m_aabb(AABB(x, y, w, h))
-    {
-        internal_setPosition(x, y);
-    }
+    Body(float x, float y, float w, float h);
 
-    Body()
-        : m_aabb(AABB(0, 0, 0, 0))
-    {
-        internal_setPosition(0, 0);
-    }
+    Body();
 
     typedef Body* Ptr;
-    void aabb(const AABB& other)
-    {
-        this->m_aabb = other;
-    }
+    void GetAABB(const AABB& other);
 
-    void *userData();
+    void* GetUserData();
 
-    void userData( void* userData );
+    void SetUserData( void* userData );
 
     /**
      * @brief dirty checks if the position has changed from the last step
      * @return
      */
-    bool dirty();
+    bool IsDirty();
 
-    const Vec2& position()
-    {
-        return m_currentPosition;
-    }
+    const Vec2& GetPosition();
 
-    void setPosition( const Vec2& new_position )
-    {
-        // might be worth to check if newpos != currentpos or might not
-        if( !m_dirty )
-        {
-            m_dirty = true;
-            m_previousPosition = m_currentPosition;
-        }
+    void SetPosition( const Vec2& new_position );
 
-        m_currentPosition = new_position;
-        m_aabb.x = new_position.x;
-        m_aabb.y = new_position.y;
-    }
+    void SetPosition( float x, float y );
 
-    void setPosition( float x, float y )
-    {
-        setPosition(Vec2(x, y));
-    }
+    void Destroy();
 
-    void destroy()
-    {
-        if( m_alive )
-        {
-            std::cout << "WARNING: trying to destroy an already dead body" << std::endl;
-        }
-        m_alive = false;
-    }
+    void ClearDirty();
 
-    void clearDirty()
-    {
-        m_dirty = false;
-    }
-
-    AABB m_aabb;
-
-    const AABB& aabb() const
-    {
-        return m_aabb;
-    }
+    const AABB& GetAABB() const;
 
 private:
 
-    void internal_setPosition(float x, float y)
-    {
-        m_currentPosition.x = x;
-        m_currentPosition.y = y;
-        m_aabb.x = x;
-        m_aabb.y = y;
-    }
+	AABB m_aabb;
+
+    void Internal_SetPosition(float x, float y);
 
     /**
      * @brief m_position current position

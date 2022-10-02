@@ -15,9 +15,9 @@ public:
 
     }
 
-    CollisionInfo resolve(const Body& b1, const Body& b2) const
+    CollisionInfo Resolve(const Body& b1, const Body& b2) const
     {
-        return AABB::checkCollision(b1.aabb(), b2.aabb());
+        return AABB::CheckCollision(b1.GetAABB(), b2.GetAABB());
     }
 };
 

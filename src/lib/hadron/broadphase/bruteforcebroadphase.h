@@ -14,25 +14,25 @@ public:
     BruteForceBroadphase();
     virtual ~BruteForceBroadphase();
 
-    void step() override;
+    void Step() override;
 
-    void registerBody( Body::Ptr body ) override;
+    void RegisterBody( Body::Ptr body ) override;
 
     /**
      * @brief removeBody
      * @param body
      */
-    void unregisterBody( Body::Ptr body ) override;
+    void UnregisterBody( Body::Ptr body ) override;
 
-    void visit(IBodyVisitor *visitor) override;
+    void Visit(IBodyVisitor *visitor) override;
 
-    virtual std::vector<Body*> queryAABB( const AABB& aabb )
+    virtual std::vector<Body*> QueryAABB( const AABB& aabb )
     {
         std::vector<Body*> ret;
         Body test_body(aabb);
         for( size_t i = 0; i < m_bodies.size(); i++ )
         {
-            auto result = resolve(test_body, *m_bodies[i]);
+            auto result = Resolve(test_body, *m_bodies[i]);
             if( result.colinfo.collides )
             {
                 ret.push_back(m_bodies[i]);

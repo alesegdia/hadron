@@ -31,89 +31,89 @@ public:
 
     }
 
-    virtual std::vector<Body*> queryAABB( const AABB& aabb ) = 0 ;
+    virtual std::vector<Body*> QueryAABB( const AABB& aabb ) = 0 ;
 
     typedef void (Broadphase::*Method)(ICollisionListener*, Body&, Body&);
     typedef void (Broadphase::*Method2)(ICollisionListener*, Body&, Body&, CollisionResult);
 
-    void emitCollisionEnter(ICollisionListener* listener, Body& b1, Body& b2, CollisionResult cr)
+    void EmitCollisionEnter(ICollisionListener* listener, Body& b1, Body& b2, CollisionResult cr)
     {
-        listener->onCollisionEnter( b1, b2, cr );
+        listener->OnCollisionEnter( b1, b2, cr );
     }
 
-    void emitCollisionExit(ICollisionListener* listener, Body& b1, Body& b2)
+    void EmitCollisionExit(ICollisionListener* listener, Body& b1, Body& b2)
     {
-        listener->onCollisionExit( b1, b2 );
+        listener->OnCollisionExit( b1, b2 );
     }
 
-    void dispatchCollisionEvent(Method m, Body& b1, Body& b2)
+    void DispatchCollisionEvent(Method m, Body& b1, Body& b2)
     {
         for( auto listener : m_collisionListeners ) {
             (this->*m)(listener, b1, b2);
         }
     }
 
-    void dispatchCollisionEvent(Method2 m, Body& b1, Body& b2, CollisionResult cr)
+    void DispatchCollisionEvent(Method2 m, Body& b1, Body& b2, CollisionResult cr)
     {
         for( auto listener : m_collisionListeners ) {
             (this->*m)(listener, b1, b2, cr);
         }
     }
 
-    void update()
+    void Update()
     {
-        collisionStep();
-        step();
+        CollisionStep();
+        Step();
     }
 
-    virtual void step() = 0;
+    virtual void Step() = 0;
 
-    virtual void registerBody( Body::Ptr body ) = 0 ;
-    virtual void unregisterBody( Body::Ptr body ) = 0 ;
+    virtual void RegisterBody( Body::Ptr body ) = 0 ;
+    virtual void UnregisterBody( Body::Ptr body ) = 0 ;
 
-    virtual void visit(IBodyVisitor* visitor) = 0 ;
+    virtual void Visit(IBodyVisitor* visitor) = 0 ;
 
-    void registerListener( ICollisionListener* listener )
+    void RegisterListener( ICollisionListener* listener )
     {
         m_collisionListeners.push_back(listener);
     }
-    void unregisterListener( ICollisionListener* listener )
+    void UnregisterListener( ICollisionListener* listener )
     {
-        remove_by_value<ICollisionListener*>( m_collisionListeners, listener );
+        RemoveByValue<ICollisionListener*>( m_collisionListeners, listener );
     }
 
-    void collisionStep()
+    void CollisionStep()
     {
         for( CollisionPairData& cpd : m_collisions )
         {
-            if( cpd.b1.dirty() || cpd.b2.dirty() )
+            if( cpd.b1.IsDirty() || cpd.b2.IsDirty() )
             {
-                auto result = resolve(cpd.b1, cpd.b2);
+                auto result = Resolve(cpd.b1, cpd.b2);
                 if( !result.colinfo.collides )
                 {
-                    dispatchCollisionEvent(&Broadphase::emitCollisionExit, cpd.b1, cpd.b2);
+                    DispatchCollisionEvent(&Broadphase::EmitCollisionExit, cpd.b1, cpd.b2);
                 }
             }
         }
     }
 
 protected:
-    void collisionHappened( Body& b1, Body& b2, CollisionResult cr )
+    void CollisionHappened( Body& b1, Body& b2, CollisionResult cr )
     {
         m_collisions.push_back(CollisionPairData(b1, b2));
-        dispatchCollisionEvent(&Broadphase::emitCollisionEnter, b1, b2, cr);
+        DispatchCollisionEvent(&Broadphase::EmitCollisionEnter, b1, b2, cr);
     }
     
-    CollisionResult resolve( const Body& b1, const Body& b2 ) const
+    CollisionResult Resolve( const Body& b1, const Body& b2 ) const
     {
         CollisionResult cr;
-        cr.colinfo = narrowphase().resolve(b1, b2);
+        cr.colinfo = Narrowphase().Resolve(b1, b2);
         cr.b1 = &b1;
         cr.b2 = &b2;
         return cr;
     }
 
-    const NarrowphaseType& narrowphase() const
+    const NarrowphaseType& Narrowphase() const
     {
         return m_narrowphase;
     }

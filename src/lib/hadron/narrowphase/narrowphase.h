@@ -21,7 +21,7 @@ class Narrowphase
 public:
     virtual ~Narrowphase();
 
-    virtual CollisionData resolve(const Body& b1, const Body& b2) const = 0 ;
+    virtual CollisionData Resolve(const Body& b1, const Body& b2) const = 0 ;
 };
 
 }

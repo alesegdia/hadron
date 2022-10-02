@@ -13,20 +13,20 @@ struct CollisionInfo
 
 struct AABB
 {
-    static CollisionInfo checkCollision( const AABB& b1, const AABB& b2 )
+    static CollisionInfo CheckCollision( const AABB& b1, const AABB& b2 )
     {
-        bool c = collides(b1, b2);
+        bool c = Collides(b1, b2);
         CollisionInfo ci;
         if( c )
         {
-            ci = computeOrientation(b1, b2);
+            ci = ComputeOrientation(b1, b2);
         }
         ci.collides = c;
         return ci;
     }
-    static bool collides(const AABB& b1, const AABB& b2);
+    static bool Collides(const AABB& b1, const AABB& b2);
     
-    static CollisionInfo computeOrientation(const AABB& b1, const AABB& b2);
+    static CollisionInfo ComputeOrientation(const AABB& b1, const AABB& b2);
 
     AABB() : x(0), y(0), width(0), height(0) {}
     AABB(float x_, float y_, float w_, float h_)
