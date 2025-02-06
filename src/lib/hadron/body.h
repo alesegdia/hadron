@@ -42,7 +42,7 @@ namespace hadron {
          *
          * @param other The AABB to set.
          */
-        void GetAABB(const AABB& other);
+        void GetLocalAABB(const AABB& other);
 
         /**
          * @brief Gets the user data associated with the Body.
@@ -102,7 +102,7 @@ namespace hadron {
          *
          * @return A reference to the AABB.
          */
-        const AABB& GetAABB() const;
+        const AABB& GetLocalAABB() const;
 
     private:
         AABB m_aabb; ///< The Axis-Aligned Bounding Box of the Body.

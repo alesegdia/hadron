@@ -70,12 +70,12 @@ Body::Body(const AABB& aabb) : m_aabb(aabb)
 	Internal_SetPosition(aabb.x, aabb.y);
 }
 
-const hadron::AABB& Body::GetAABB() const
+const hadron::AABB& Body::GetLocalAABB() const
 {
 	return m_aabb;
 }
 
-void Body::GetAABB(const AABB& other)
+void Body::GetLocalAABB(const AABB& other)
 {
 	this->m_aabb = other;
 }
