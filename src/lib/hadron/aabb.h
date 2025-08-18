@@ -1,13 +1,14 @@
 #pragma once
 
 #include <vector>
-#include <glm/glm.hpp>
-#include <glm/gtx/perpendicular.hpp>
+// #include <glm/glm.hpp>
+// #include <glm/gtx/perpendicular.hpp>
 #include "vec.h"
 
 
 namespace hadron {
 
+#if 0
     class ConvexHull
     {
 	public:
@@ -94,6 +95,7 @@ namespace hadron {
 
     };
 
+#endif 
     /**
      * @brief Structure to hold collision information.
      */
