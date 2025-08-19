@@ -3,16 +3,10 @@ project(hadron)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_HOME_DIRECTORY}/bin)
 
-if(WIN32)
-	list(APPEND CMAKE_EXE_LINKER_FLAGS "-static-libstdc++ -g -static-libgcc")
-endif()
-
 # CORE LIBRARY ################################
 file(GLOB_RECURSE HADRON_SOURCES src/lib/**/*.cpp src/lib/**/*.h)
 add_library(hadron ${HADRON_SOURCES})
 set_target_properties(hadron PROPERTIES
-        COMPILE_FLAGS "-std=c++11"
-        LINK_FLAGS "-g -ftest-coverage -fprofile-arcs"
         INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
